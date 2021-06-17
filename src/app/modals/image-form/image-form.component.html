@@ -1,0 +1,39 @@
+<form [formGroup]="formModel" (ngSubmit)="submit()">
+  <div class="modal-header">
+    <h1>
+      Image form
+    </h1>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="imageUploaded">
+      <img [src]="imageUploaded" alt="" class="img-thumbnail rounded"/>
+    </div>
+    <div class="pb-3">
+      <label for="image_file" class="col-form-label">Image</label>
+      <input type="file"
+             class="form-control"
+             name="image_file"
+             accept="image/*"
+             id="image_file"
+             formControlName="image"
+             (change)="onImageChange($event)">
+    </div>
+    <div class="pb-3">
+      <label for="image_title" class="col-form-label">Title</label>
+      <input type="text" name="image_title" class="form-control" id="image_title" formControlName="title"/>
+    </div>
+    <div class="pb-3">
+      <label for="image_description" class="col-form-label">Description</label>
+      <textarea name="image_description" class="form-control" rows="5" formControlName="description" id="image_description">
+      </textarea>
+    </div>
+  </div>
+  <div class="modal-footer text-end">
+    <button class="btn btn-link text-danger" type="button" (click)="removeImage()" *ngIf="imageExists()">
+      Remove
+    </button>
+    <button class="btn btn-primary">
+      Save
+    </button>
+  </div>
+</form>

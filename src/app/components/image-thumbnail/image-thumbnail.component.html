@@ -1,0 +1,25 @@
+<a tabindex="0"
+   role="button"
+   (click)="openGalleryView($event)"
+   (keyup)="openGalleryWithKeyboard($event)"
+   class="thumbnail-container img-thumbnail rounded"
+   aria-label="Open image preview">
+  <div class="actions-column">
+    <button class="btn btn-link text-decoration-none remove-btn p-0 me-3"
+            type="button"
+            (click)="removeImage($event)"
+            [attr.aria-label]="'Remove ' + image.title">
+      Remove
+    </button>
+    <button class="btn btn-link text-decoration-none p-0"
+            type="button"
+            (click)="openForm($event)"
+            [attr.aria-label]="'Edit ' + image.title">
+      Edit
+    </button>
+  </div>
+  <div class="h-100 w-100 d-flex justify-content-center">
+    <img [src]="image.image" [alt]="image.title" [attr.aria-describedby]="uuid" class="thumbnail"/>
+  </div>
+  <p class="visually-hidden" [id]="uuid">{{image.description}}</p>
+</a>

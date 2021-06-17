@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h1 class="fs-4">
+    {{title}}
+  </h1>
+  <button type="button" (click)="cancel()" class="btn-close" aria-label="Close"></button>
+</div>
+<div class="modal-body" [innerHTML]="description"></div>
+<div class="modal-footer text-end">
+  <button class="btn btn-link text-dark" (click)="cancel()">
+    Cancel
+  </button>
+  <button class="btn btn-link text-primary" (click)="accept()">
+    Accept
+  </button>
+</div>

@@ -1,0 +1,10 @@
+<div class="row align-items-stretch">
+  <div class="col-12 py-2">
+    <button class="btn btn-link p-0" (click)="openForm()">
+      Add Image +
+    </button>
+  </div>
+  <div class="col-6 col-md-3 pb-4" *ngFor="let image of images$ | async;">
+    <app-image-thumbnail [image]="image"></app-image-thumbnail>
+  </div>
+</div>

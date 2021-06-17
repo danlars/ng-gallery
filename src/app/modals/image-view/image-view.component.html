@@ -1,0 +1,20 @@
+<div class="d-flex flex-column vh-100">
+  <div class="modal-header">
+    <h1>Image View</h1>
+    <button class="btn-close" aria-label="Close Image View" (click)="close()">&nbsp;</button>
+  </div>
+  <div class="modal-body p-0 align-self-stretch">
+    <div class="d-flex flex-column image-view">
+      <div class="flex-grow-1 image-selected-container">
+        <app-image-selected [image]="selectedImage"></app-image-selected>
+      </div>
+      <div class="thumbnail-bar mt-auto">
+        <div class="thumbnail-scroller px-1">
+          <div class="thumbnail d-inline-block" *ngFor="let image of images$ | async;">
+            <app-image-thumbnail class="d-block h-100 w-100 py-1 px-1" [image]="image"></app-image-thumbnail>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

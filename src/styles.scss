@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap";
+
+:root {
+  --bs-danger-dark: #{$red-700};
+  --bs-cyan-light: #{$cyan-100};
+  --bs-gray-light: #{$gray-200};
+}
+
+html, body {
+  background-color: var(--bs-gray-light);
+}
+
