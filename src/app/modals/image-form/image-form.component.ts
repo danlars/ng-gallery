@@ -4,6 +4,7 @@ import {ImagesService} from '../../store/images/images.service';
 import {ImageForm} from './image-form';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {fileToBase64} from '../../functions/file-to-base64';
+import {NotificationService} from '../../modules/notification/notification.service';
 
 @Component({
   selector: 'app-image-form',
@@ -17,7 +18,8 @@ export class ImageFormComponent implements OnInit {
   @Input()
   image: ImageInterface | null = null;
 
-  constructor(private readonly imagesService: ImagesService, private readonly activeModal: NgbActiveModal) { }
+  constructor(private readonly imagesService: ImagesService, private readonly activeModal: NgbActiveModal, private readonly notificationService: NotificationService) {
+  }
 
   ngOnInit(): void {
     if (this.imageExists() && this.image) {
@@ -43,13 +45,16 @@ export class ImageFormComponent implements OnInit {
     }
   }
 
-  removeImage() {
-    if (!this.image) {
+  async removeImage() {
+    if (!this.imageExists() || !this.image) {
       return;
     }
 
-    this.imagesService.removeImage(this.image);
-    this.closeModal();
+    const confirm = await this.notificationService.alert('Conirm', 'Are you sure you want to Remove this image?');
+    if (confirm) {
+      this.imagesService.removeImage(this.image);
+      this.closeModal();
+    }
   }
 
   submit() {

@@ -1,6 +1,6 @@
 import {TagsStateInterface} from './tags.state.interface';
 import {createReducer, on} from '@ngrx/store';
-import {addTag, removeTag, updateTag} from './tags.actions';
+import {addTag, removeTag, setTags, updateTag} from './tags.actions';
 
 const initialState: TagsStateInterface = {
   tags: [],
@@ -8,7 +8,7 @@ const initialState: TagsStateInterface = {
 
 export const tagsReducer = createReducer(
   initialState,
-  on(addTag, (state, { tag }) => {
+  on(addTag, (state, {tag}) => {
     const tags = [...state.tags];
     const addedTag = {...tag};
     tags.push(addedTag);
@@ -17,7 +17,7 @@ export const tagsReducer = createReducer(
       tags,
     };
   }),
-  on(updateTag, (state, { tag }) => {
+  on(updateTag, (state, {tag}) => {
     const tags = [...state.tags];
     const tagIndex = tags.findIndex(stateTag => stateTag.id === tag.id);
     tags.splice(tagIndex, 1, tag);
@@ -26,7 +26,7 @@ export const tagsReducer = createReducer(
       tags,
     };
   }),
-  on(removeTag, (state, { tag }) => {
+  on(removeTag, (state, {tag}) => {
     const tags = [...state.tags];
     const tagIndex = tags.findIndex(stateTag => stateTag.id === tag.id);
     tags.splice(tagIndex, 1);
@@ -35,4 +35,5 @@ export const tagsReducer = createReducer(
       tags,
     };
   }),
+  on(setTags, (state, {tags}) => ({...state, tags})),
 )
