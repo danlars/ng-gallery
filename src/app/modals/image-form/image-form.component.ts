@@ -50,7 +50,7 @@ export class ImageFormComponent implements OnInit {
       return;
     }
 
-    const confirm = await this.notificationService.alert('Conirm', 'Are you sure you want to Remove this image?');
+    const confirm = await this.notificationService.alert('Confirm', 'Are you sure you want to Remove this image?');
     if (confirm) {
       this.imagesService.removeImage(this.image);
       this.closeModal();
