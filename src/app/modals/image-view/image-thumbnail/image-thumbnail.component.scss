@@ -8,3 +8,7 @@
   height: 100%;
   object-fit: contain;
 }
+
+.active {
+  outline: -webkit-focus-ring-color auto 1px;
+}

@@ -1,4 +1,9 @@
-<a role="button" class="img-button img-thumbnail" tabindex="0" (click)="selectImage($event)">
-  <img class="thumbnail" [src]="image.image" [alt]="image.title" [attr.aria-describedby]="uuid" />
+<a role="button"
+   class="img-button img-thumbnail"
+   tabindex="0"
+   [ngClass]="{active: isActive}"
+   (keyup.enter)="onClickImage($event)"
+   (click)="onClickImage($event)">
+  <img class="thumbnail" [src]="image.image" [alt]="image.title" [attr.aria-describedby]="uuid"/>
 </a>
 <p class="visually-hidden" [id]="uuid">{{image.description}}</p>

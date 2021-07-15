@@ -12,6 +12,6 @@ import { ImageSelectedComponent } from './image-selected/image-selected.componen
   ],
   imports: [
     CommonModule
-  ]
+  ],
 })
 export class ImageViewModule { }

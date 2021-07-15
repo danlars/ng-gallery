@@ -15,3 +15,9 @@ export const selectSelectedImage = createSelector(
     return images.selectedImage;
   }
 );
+export const selectSelectedImageIndex = createSelector(
+  featureSelector,
+  (images) => {
+    return images.selectedImageIndex;
+  }
+);

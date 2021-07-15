@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ImageInterface} from '../../../interfaces/image.interface';
-import {ImagesService} from '../../../store/images/images.service';
 import {v4} from 'uuid';
 
 @Component({
@@ -15,13 +14,18 @@ export class ImageThumbnailComponent {
   // @ts-ignore
   image: ImageInterface;
 
-  constructor(private readonly imagesService: ImagesService) {
+  @Input()
+  isActive: boolean = false;
+
+  @Output()
+  onClick: EventEmitter<void> = new EventEmitter();
+
+  constructor() {
     this.uuid = v4();
   }
 
-  selectImage(event: MouseEvent) {
+  onClickImage(event: Event) {
     event.preventDefault();
-    this.imagesService.setSelectedImage(this.image);
+    this.onClick.emit();
   }
-
 }
