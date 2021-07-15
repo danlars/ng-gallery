@@ -47,6 +47,7 @@ export class TagFormComponent implements OnInit {
     }
 
     const tag: TagInterface = this.formModel.value;
+    tag.id = this.tag.id;
     if (this.tagExists()) {
       this.tagsService.updateTag(tag);
     } else {
