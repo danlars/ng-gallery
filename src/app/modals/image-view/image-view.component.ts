@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy} from '@angular/core';
 import {ImagesService} from '../../store/images/images.service';
 import {Observable, Subscription} from 'rxjs';
 import {ImageInterface} from '../../interfaces/image.interface';
@@ -20,12 +20,16 @@ export class ImageViewComponent implements OnDestroy {
       return;
     }
     switch (event.key) {
-      case 'ArrowLeft': this.imagesService.goToPreviousImage(); break;
-      case 'ArrowRight': this.imagesService.goToNextImage(); break;
+      case 'ArrowLeft': this.goToPreviousImage(); break;
+      case 'ArrowRight': this.goToNextImage(); break;
     }
   }
 
-  constructor(private readonly imagesService: ImagesService, private readonly activeModal: NgbActiveModal) {
+  constructor(
+    private readonly imagesService: ImagesService,
+    private readonly activeModal: NgbActiveModal,
+    private readonly elementRef: ElementRef,
+  ) {
     this.images$ = this.imagesService.images$;
     this.imageSelectedSubscription = this.imagesService.imageSelected$.subscribe((image) => {
       this.selectedImage = image;
@@ -48,8 +52,22 @@ export class ImageViewComponent implements OnDestroy {
     this.imageSelectedSubscription.unsubscribe();
   }
 
+  goToNextImage() {
+    this.imagesService.goToNextImage();
+    this.focusActiveThumbnail();
+  }
+
+  goToPreviousImage() {
+    this.imagesService.goToPreviousImage();
+    this.focusActiveThumbnail();
+  }
+
   close(event: Event) {
     event.preventDefault();
     setTimeout(() => this.activeModal.close(), 80);
+  }
+
+  private focusActiveThumbnail() {
+    setTimeout(() => this.elementRef.nativeElement.querySelector('app-image-thumbnail > .active')?.focus());
   }
 }
