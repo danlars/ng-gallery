@@ -1,0 +1,7 @@
+<div class="avatar-container d-flex justify-content-center align-items-center"
+     [style]="{backgroundColor: getBackgroundColor(), fontSize: fontSize}">
+  <p *ngIf="!hasImage()" class="m-0" [attr.aria-label]="name">
+    {{getCharacters()}}
+  </p>
+  <img *ngIf="hasImage()" [src]="image" [alt]="name" class="avatar-image"/>
+</div>

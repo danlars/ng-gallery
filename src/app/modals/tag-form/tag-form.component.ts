@@ -16,7 +16,7 @@ export class TagFormComponent implements OnInit {
   tag: TagInterface = {
     name: '',
     color: ''
-  }
+  };
 
   constructor(private readonly activeModal: NgbActiveModal, private readonly tagsService: TagsService, private readonly notificationService: NotificationService) {
   }

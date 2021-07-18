@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {TagFormComponent} from './tag-form.component';
+import {UserFormComponent} from './user-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TagModule} from '../../components/tag/tag.module';
+import {AvatarModule} from '../../components/avatar/avatar.module';
 import {NotificationModule} from '../../modules/notification/notification.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [TagFormComponent],
+  declarations: [UserFormComponent],
   imports: [
     CommonModule,
+    AvatarModule,
     FormsModule,
     ReactiveFormsModule,
-    TagModule,
     NgbModalModule,
     NotificationModule
   ],
   exports: [
-    TagFormComponent
+    UserFormComponent,
   ]
 })
-export class TagFormModule { }
+export class UserFormModule { }

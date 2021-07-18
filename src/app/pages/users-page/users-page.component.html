@@ -1,1 +1,47 @@
-<p>users-page works!</p>
+<h1>Users</h1>
+<button class="btn btn-link p-0" (click)="openForm()">
+  Add User +
+</button>
+<p id="dropdownAccText" class="visually-hidden">
+  Actions dropdown
+</p>
+<table class="mt-5 table table-hover table-borderless">
+  <thead>
+  <tr>
+    <th>Profile</th>
+    <th><span class="visually-hidden">Actions</span></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users$ | async;">
+    <td>
+      <div class="d-flex align-items-center">
+        <app-avatar [name]="user.name" [image]="user.avatar || ''" fontSize="1.2rem" class="avatar-logo">
+        </app-avatar>
+        <div class="ms-3">
+          <ul class="list-unstyled mb-0">
+            <li>
+              <span class="fw-bold">Username:</span> {{user.username}}
+            </li>
+            <li>
+              <span class="fw-bold">Name:</span> {{user.name}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </td>
+    <td class="text-end align-middle">
+      <div class="d-inline-block">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" ngbDropdownToggle>Actions</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownAccText">
+            <button type="button" (click)="openForm(user)" ngbDropdownItem>Edit</button>
+            <button type="button" (click)="removeUser(user)" class="text-danger" ngbDropdownItem>Remove</button>
+            <button title="Work in progress..." type="button" disabled ngbDropdownItem>Activity</button>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

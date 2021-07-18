@@ -11,9 +11,9 @@ export class TagsTableService {
     this.gallerySchema = schemasService.gallerySchema;
   }
 
-  async addTag(tag: TagInterface) {
+  async addTag(tag: TagInterface): Promise<TagInterface> {
     const tagKey = await this.gallerySchema.tags.put(tag);
-    return this.gallerySchema.tags.get(tagKey);
+    return this.gallerySchema.tags.get(tagKey) as Promise<TagInterface>;
   }
 
   getAllTags() {

@@ -13,9 +13,9 @@ export class TagsService {
     this.tags$ = this.store.pipe(select(selectTags));
   }
 
-  addTag(tag: TagInterface) {
-    this.tableService.addTag(tag);
-    this.store.dispatch(addTag({tag}));
+  async addTag(tag: TagInterface) {
+    const newTag = await this.tableService.addTag(tag);
+    this.store.dispatch(addTag({tag: newTag}));
   }
 
   updateTag(tag: TagInterface) {

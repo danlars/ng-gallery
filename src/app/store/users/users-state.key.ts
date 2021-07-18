@@ -1,0 +1,1 @@
+export const usersStateKey = 'users';
