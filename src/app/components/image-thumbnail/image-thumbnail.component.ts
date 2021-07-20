@@ -45,13 +45,13 @@ export class ImageThumbnailComponent {
   }
 
   openGalleryView(event: Event) {
-    this.imagesService.setSelectedImage(this.image);
     event.preventDefault();
     event.stopPropagation();
-    this.modalService.open(ImageViewComponent, {
+    const modal = this.modalService.open(ImageViewComponent, {
       size: 'xl',
       modalDialogClass: 'modal-fullscreen',
     });
+    modal.componentInstance.image = this.image;
   }
 
   removeImage(event: MouseEvent) {
@@ -62,6 +62,5 @@ export class ImageThumbnailComponent {
           this.imagesService.removeImage(this.image);
         }
       });
-
   }
 }

@@ -9,15 +9,3 @@ export const selectImages = createSelector(
     return images.images;
   }
 );
-export const selectSelectedImage = createSelector(
-  featureSelector,
-  (images) => {
-    return images.selectedImage;
-  }
-);
-export const selectSelectedImageIndex = createSelector(
-  featureSelector,
-  (images) => {
-    return images.selectedImageIndex;
-  }
-);

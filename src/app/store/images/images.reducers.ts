@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {addImage, editImage, removeImage, selectImage, setImages, onSelectNextImage, onSelectPreviousImage} from './images.actions';
+import {addImage, editImage, removeImage, setImages} from './images.actions';
 import {ImagesStateInterface} from './images.state.interface';
 
 const ImagesState: ImagesStateInterface = {
@@ -38,35 +38,4 @@ export const imagesReducer = createReducer(
     };
   }),
   on(setImages, (state, { images }) => ({...state, images})),
-  on(selectImage, (state, { image }) => {
-    return {
-      ...state,
-      selectedImage: image,
-      selectedImageIndex: state.images.findIndex(storeImage => storeImage.id === image?.id),
-    };
-  }),
-  on(onSelectNextImage, (state) => {
-    let index = state.selectedImageIndex + 1;
-    if (state.images.length === index) {
-      index = 0;
-    }
-
-    return {
-      ...state,
-      selectedImage: state.images[index],
-      selectedImageIndex: index,
-    };
-  }),
-  on(onSelectPreviousImage, (state) => {
-    let index = state.selectedImageIndex - 1;
-    if (index === -1) {
-      index = state.images.length - 1;
-    }
-
-    return {
-      ...state,
-      selectedImage: state.images[index],
-      selectedImageIndex: index,
-    };
-  }),
 );

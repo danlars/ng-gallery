@@ -1,18 +1,21 @@
-import {Component, ElementRef, HostListener, OnDestroy} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit} from '@angular/core';
 import {ImagesService} from '../../store/images/images.service';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ImageInterface} from '../../interfaces/image.interface';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {ImageViewService} from './image-view.service';
 
 @Component({
   selector: 'app-image-view',
   templateUrl: './image-view.component.html',
   styleUrls: ['./image-view.component.scss'],
 })
-export class ImageViewComponent implements OnDestroy {
-  private imageSelectedSubscription: Subscription;
+export class ImageViewComponent implements OnInit {
   images$: Observable<ImageInterface[]>;
   selectedImage: ImageInterface | null = null;
+  @Input()
+  // @ts-ignore
+  image: ImageInterface;
 
   @HostListener('window:keydown', ['$event'])
   onKeypress(event: KeyboardEvent) {
@@ -27,17 +30,20 @@ export class ImageViewComponent implements OnDestroy {
 
   constructor(
     private readonly imagesService: ImagesService,
+    private readonly imageViewService: ImageViewService,
     private readonly activeModal: NgbActiveModal,
     private readonly elementRef: ElementRef,
   ) {
-    this.images$ = this.imagesService.images$;
-    this.imageSelectedSubscription = this.imagesService.imageSelected$.subscribe((image) => {
-      this.selectedImage = image;
-    });
+    this.images$ = this.imageViewService.images$;
+  }
+
+  ngOnInit() {
+    this.selectImage(this.image);
   }
 
   selectImage(image: ImageInterface) {
-    this.imagesService.setSelectedImage(image);
+    this.imageViewService.setSelectedImage(image);
+    this.updateSelectedImage();
   }
 
   isSelectedImage(image: ImageInterface) {
@@ -47,18 +53,15 @@ export class ImageViewComponent implements OnDestroy {
     return this.selectedImage.id === image.id;
   }
 
-  ngOnDestroy() {
-    this.imagesService.setSelectedImage(null);
-    this.imageSelectedSubscription.unsubscribe();
-  }
-
   goToNextImage() {
-    this.imagesService.goToNextImage();
+    this.imageViewService.goToNextImage();
+    this.updateSelectedImage();
     this.focusActiveThumbnail();
   }
 
   goToPreviousImage() {
-    this.imagesService.goToPreviousImage();
+    this.imageViewService.goToPreviousImage();
+    this.updateSelectedImage();
     this.focusActiveThumbnail();
   }
 
@@ -69,5 +72,9 @@ export class ImageViewComponent implements OnDestroy {
 
   private focusActiveThumbnail() {
     setTimeout(() => this.elementRef.nativeElement.querySelector('app-image-thumbnail > .active')?.focus());
+  }
+
+  private updateSelectedImage() {
+    this.selectedImage = this.imageViewService.getSelectedImage();
   }
 }
